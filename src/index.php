@@ -61,7 +61,7 @@ $app->put('/tasks/{id}', function (Request $request, Response $response, $args) 
         $task['title'] = $data['title'];
         $task['description'] = $data['description'];
         $task['status'] = $data['status'];
-        $validationErrors = TaskValidation::validateTaskData($tasks);
+        $validationErrors = TaskValidation::validateTaskData($task);
         if (!empty($validationErrors)) {
             return Utils::jsonResponse(['error' => 'Validation failed', 'errors' => $validationErrors], $response, 400);
         }
