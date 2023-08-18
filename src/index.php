@@ -61,7 +61,7 @@ $app->put('/tasks/{id}', function (Request $request, Response $response, $args) 
         $task['title'] = $data['title'];
         $task['description'] = $data['description'];
         $task['status'] = $data['status'];
-        $validationErrors = TaskValidation::validateTaskData($tasks);
+        $validationErrors = TaskValidation::validateTaskData($task);
         if (!empty($validationErrors)) {
             return Utils::jsonResponse(['error' => 'Validation failed', 'errors' => $validationErrors], $response, 400);
         }
@@ -77,7 +77,7 @@ $app->delete('/tasks/{id}', function (Request $request, Response $response, $arg
     $id = $args['id'];
     if (isset($tasks[$id])) {
         unset($tasks[$id]);
-        return $response->withStatus(204);
+        return Utils::jsonResponse(null,$response,204);
     } else {
         return Utils::jsonResponse(['error' => 'Task not found'], $response, 404);
     }
